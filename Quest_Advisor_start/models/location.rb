@@ -21,6 +21,17 @@ class Location
   #   sql = 
   # end
 
+  def users()
+    sql = "
+    SELECT u.* FROM users u
+    INNER JOIN visits v
+    ON u.id = v.user_id
+    WHERE v.location_id = #{@id};
+    "
+    users = User.get_many(sql)
+    return users
+  end
+
   def self.all()
     sql = "SELECT * FROM locations"
     return self.get_many(sql)

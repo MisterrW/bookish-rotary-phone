@@ -42,7 +42,7 @@ class Location
     SqlRunner.run(sql)
   end
 
-  def self.get_many(sql)
+  def Location.get_many(sql)
     locations = SqlRunner.run(sql)
     result = locations.map { |hash| Location.new( hash ) }
     return result

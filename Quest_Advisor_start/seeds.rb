@@ -30,5 +30,11 @@ visit3.save()
 visit4 = Visit.new({ 'user_id' => user3.id, 'location_id' => location2.id, 'review' => '5 stars, home from home, could settle here'})
 visit4.save()
 
-binding.pry
-nil
+
+
+visits = user1.visits()
+visits.map { |visit| puts visit.user.name() + " visited " + visit.location.name + ": " + visit.review }
+
+
+# binding.pry
+# nil

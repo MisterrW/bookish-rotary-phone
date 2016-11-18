@@ -27,7 +27,24 @@ class User
     return locations
   end
 
-  def self.get_many(sql)
+  def print_review
+    sql = "SELECT locations.*, visits.* FROM locations
+    INNER JOIN visits
+    ON visits.location_id = locations.id
+    WHERE user_id = #{ @id }
+    ;"
+    results = SqlRunner.run(sql)
+    return results.map { |result| "#{@name} visited #{result['name']}: #{result['review']}}" }
+  end
+
+  def visits
+    sql = "SELECT * FROM visits WHERE user_id = #{@id}"
+    result = SqlRunner.run(sql)
+    visits = result.map { |hash| Visit.new( hash ) }
+    return visits
+  end
+
+  def User.get_many(sql)
     users = SqlRunner.run(sql)
     result = users.map { |hash| User.new( hash ) }
     return result
